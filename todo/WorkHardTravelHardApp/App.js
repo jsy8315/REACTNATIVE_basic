@@ -1,21 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, 
+          TouchableHighlight, TouchableWithoutFeedback,
+           Pressable, TextInput } from 'react-native';
 import theme from "./color"
+import { useState } from 'react';
 
 export default function App() {
+  const [working, setWorking] = useState(true);
+  const travel = () => setWorking(false);
+  const work = () => setWorking(true);
+  const onChangeText = (payload) => setText(payload);
+  const [text, setText] = useState("")
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Text style={styles.btnText}>WORK</Text>
+        <TouchableOpacity onPress={work}>
+          <Text style={{...styles.btnText, color: working ? "white" : theme.grey}}>WORK</Text>
         </TouchableOpacity>
         <TouchableWithoutFeedback // UI 변화 없음
           // underlayColor="#DDDDDD"
           // activeOpacity={0}
-          onPress={() => console.log("pressed")}>
-          <Text style={styles.btnText}>TRAVEL</Text>
+          onPress={travel}>
+          <Text style={{...styles.btnText, color: !working ? "white" : theme.grey}}>TRAVEL</Text>
         </TouchableWithoutFeedback>
+      </View>
+      <View>
+        <TextInput 
+        onChangeText={onChangeText}
+        value={text}
+        multiline
+        returnKeyType='done'
+        placeholder={working ? "Add a To Do" : "Where do you want to go?"} style={styles.input}/>
       </View>
     </View>
   );
@@ -37,5 +53,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 44,
     fontWeight: 600
+  }, 
+  input: {
+    backgroundColor: "white",
+    paddingVertical: 15,
+    paddingHorizontal: 50,
+    borderRadius: 20,
+    marginTop: 10,
+    fontSize: 18
   }
 });

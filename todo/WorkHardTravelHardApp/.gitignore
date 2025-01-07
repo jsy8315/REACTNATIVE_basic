@@ -34,3 +34,10 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# etc
+app.json
+index.js
+package-lock.json
+package.json
+/assets
