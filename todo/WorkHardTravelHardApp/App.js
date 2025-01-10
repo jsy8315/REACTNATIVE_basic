@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, 
           TouchableHighlight, TouchableWithoutFeedback,
-           Pressable, TextInput } from 'react-native';
+           Pressable, TextInput, ScrollView 
+          } from 'react-native';
 import theme from "./color"
 import { useState } from 'react';
 
@@ -16,9 +17,10 @@ export default function App() {
     if(text === ""){
       return;
     }
-    const newToDos = Object.assign({}, toDos, {
-      [Date.now()]: {text, work: working} 
-    })
+    const newToDos = {
+      ...toDos,
+      [Date.now()]: { text, work : working}
+    }
     setToDos(newToDos);
     setText("");
   };
@@ -46,6 +48,7 @@ export default function App() {
         returnKeyType='done'
         placeholder={working ? "Add a To Do" : "Where do you want to go?"} style={styles.input}/>
       </View>
+      <ScrollView></ScrollView>
     </View>
   );
 }
