@@ -33,8 +33,6 @@ export default function App() {
           <Text style={{...styles.btnText, color: working ? "white" : theme.grey}}>WORK</Text>
         </TouchableOpacity>
         <TouchableWithoutFeedback // UI 변화 없음
-          // underlayColor="#DDDDDD"
-          // activeOpacity={0}
           onPress={travel}>
           <Text style={{...styles.btnText, color: !working ? "white" : theme.grey}}>TRAVEL</Text>
         </TouchableWithoutFeedback>
@@ -44,11 +42,17 @@ export default function App() {
         onChangeText={onChangeText}
         onSubmitEditing={addToDo}
         value={text}
-        // multiline
-        returnKeyType='done'
+        returnKeyType='done' 
         placeholder={working ? "Add a To Do" : "Where do you want to go?"} style={styles.input}/>
       </View>
-      <ScrollView></ScrollView>
+      <ScrollView>
+        {
+        Object.keys(toDos).map(key => 
+          <View style ={styles.toDo} key={key}>
+            <Text style ={styles.toDoText}>{toDos[key].text}</Text>
+          </View>)
+        }
+      </ScrollView>
     </View>
   );
 }
@@ -75,7 +79,19 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 50,
     borderRadius: 20,
-    marginTop: 10,
+    marginVertical: 10,
     fontSize: 18
+  },
+  toDo: {
+    backgroundColor: theme.grey,
+    marginBottom: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 15
+  },
+  toDoText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500"
   }
 });
